@@ -1,4 +1,4 @@
-defmodule Elins.Mixfile do
+defmodule Fun.Mixfile do
   use Mix.Project
 
   def project do
