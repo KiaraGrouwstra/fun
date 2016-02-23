@@ -98,6 +98,21 @@ defmodule Fun do
   end
 
   @doc """
+      iex> plus = &Kernel.+/2
+      iex> add = &Enum.reduce(&1, plus)
+      iex> flow([add, &Kernel.to_string/1]).([8, 8, 8])
+      "24"
+  """
+  def flow(funs) do
+    arity = arity(funs |> Enum.at(-1))
+    funs |> Enum.reduce(fn(outer, inner) ->
+      fn(args) ->
+        outer.(apply(inner, args))
+      end |> adapt!(arity(inner))
+    end)
+  end
+
+  @doc """
       iex> juxt([&Enum.empty?/1, &Enum.reverse/1, &Enum.count/1]).([:a, :b, :c])
       [false, [:c, :b, :a], 3]
   """

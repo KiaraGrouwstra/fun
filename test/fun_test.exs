@@ -39,6 +39,12 @@ defmodule FunTest do
     assert comp([&Kernel.to_string/1, add]).([8, 8, 8]) == "24"
   end
 
+  test "flow" do
+    plus = &Kernel.+/2
+    add = &Enum.reduce(&1, plus)
+    assert flow([add, &Kernel.to_string/1]).([8, 8, 8]) == "24"
+  end
+
   test "juxt" do
     assert juxt([&Enum.empty?/1, &Enum.reverse/1, &Enum.count/1]).([:a, :b, :c]) == [false, [:c, :b, :a], 3]
   end
