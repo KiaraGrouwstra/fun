@@ -1,6 +1,26 @@
 defmodule Fun do
 
   @doc """
+      currying, by [Patrik Storm](http://blog.patrikstorm.com/function-currying-in-elixir)
+      iex> curried = curry(&Kernel.+/2)
+      iex> plus5 = curried.(5)
+      iex> plus5.(3)
+      8
+  """
+  def curry(fun) do
+    {_, arity} = :erlang.fun_info(fun, :arity)
+    curry(fun, arity, [])
+  end
+
+  defp curry(fun, 0, arguments) do
+    apply(fun, Enum.reverse arguments)
+  end
+
+  defp curry(fun, arity, arguments) do
+    fn arg -> curry(fun, arity - 1, [arg | arguments]) end
+  end
+
+  @doc """
       iex> arity(&Kernel.even?/1)
       1
       iex> arity(&Kernel.+/2)

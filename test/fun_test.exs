@@ -3,6 +3,12 @@ defmodule FunTest do
   import Fun
   require Integer
 
+  test "curry" do
+    curried = curry(&Kernel.+/2)
+    plus5 = curried.(5)
+    assert plus5.(3) == 8
+  end
+
   test "arity" do
     assert arity(&Integer.is_even/1) == 1
     assert arity(&Kernel.+/2) == 2

@@ -24,7 +24,7 @@ defmodule Fun.Mixfile do
 
   defp package do
     [files: ~w(lib mix.exs README.md LICENSE UNLICENSE VERSION),
-     contributors: ["Avdi Grimm", "meh", "José Valim"],
+     contributors: ["Avdi Grimm", "meh", "José Valim", "Patrik Storm"],
      licenses: ["WTFNMFPL"],
      links: %{"GitHub" => "https://github.com/tycho01/fun"}]
   end
